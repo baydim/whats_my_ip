@@ -1,6 +1,6 @@
 # Whats My Ip
 
-A new Flutter project.
+Flutter project to see your web domain ip and local ip
 
 ## Getting Started
 
