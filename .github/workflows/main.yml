@@ -23,3 +23,10 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/debug/*.apk"
           token: ${{ secrets.TOKEN }}
+          tag: ${{ github.ref }}
+          name: ${{ github.ref }}
+          body: ${{ github.ref }}
+          draft: true
+          prerelease: true
+          allowUpdates: true
+          overwrite: true
