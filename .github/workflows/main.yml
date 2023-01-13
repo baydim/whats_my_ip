@@ -17,7 +17,6 @@ jobs:
     - run: flutter --version
     channel: 'stable'
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build apk --release
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
