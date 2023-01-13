@@ -10,8 +10,6 @@ jobs:
         with:
           dart-version: "2.18.0"
           channel: "stable"
-      - name: Install dependencies
-        run: dart pub get
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
