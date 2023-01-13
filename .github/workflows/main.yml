@@ -4,14 +4,18 @@ jobs:
   build:
     name: Build APK
     runs-on: ubuntu-latest
+  
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "3.5.5"
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.5.5'
+        channel: 'stable'
+    - run: flutter --version
+    channel: 'stable'
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk --release
