@@ -1,10 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cek_ip/app/core/models/data_ip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../core/services/network_service.dart';
-
-import 'dart:io';
 
 class MainVIew extends StatefulWidget {
   const MainVIew({super.key});
@@ -32,11 +32,13 @@ class _MainVIewState extends State<MainVIew> {
 
   funcCopyTextInClipboard(String text) async {
     await Clipboard.setData(ClipboardData(text: text));
-    // remove snakbar first
+    // vibration feedback
+    HapticFeedback.vibrate();
+
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Copied to Clipboard'),
         backgroundColor: Colors.green,
       ),
@@ -78,7 +80,7 @@ class _MainVIewState extends State<MainVIew> {
                         keyboardType: TextInputType.url,
                         textInputAction: TextInputAction.search,
                         onSubmitted: (value) async {
-                          final result = await NetworkService.pingDomain(
+                          final result = await NetworkService.getDomainIp(
                             domain: controller.text,
                           );
                           dataIpPing = result;
@@ -90,7 +92,7 @@ class _MainVIewState extends State<MainVIew> {
                           hintText: 'google.com',
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              final result = await NetworkService.pingDomain(
+                              final result = await NetworkService.getDomainIp(
                                 domain: controller.text,
                               );
                               dataIpPing = result;
@@ -101,18 +103,18 @@ class _MainVIewState extends State<MainVIew> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kToolbarHeight / 3,
                       ),
                       Card(
                         child: ListTile(
                           title: const Text('IPv4'),
                           subtitle: dataIpPing.ipV4.isEmpty
-                              ? Text('No Data')
+                              ? const Text('No Data')
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 4,
                                     ),
                                     for (var item in dataIpPing.ipV4)
@@ -131,7 +133,7 @@ class _MainVIewState extends State<MainVIew> {
                                                 Text(
                                                   '${item.address.address} (${item.interfaceName})',
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Icon(
                                                   iconByNetworkInterfaceName(
                                                     item.interfaceName,
@@ -142,36 +144,36 @@ class _MainVIewState extends State<MainVIew> {
                                           ),
                                         ),
                                       ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 3,
                                     )
                                   ],
                                 ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kToolbarHeight / 3,
                       ),
-                      Divider(),
-                      SizedBox(
+                      const Divider(),
+                      const SizedBox(
                         height: kToolbarHeight / 3,
                       ),
                       Text(
                         'Your IP',
                         style: Theme.of(context).textTheme.headline6,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kToolbarHeight / 4,
                       ),
                       Card(
                         child: ListTile(
                           title: const Text('IPv4'),
                           subtitle: dataIp.ipV4.isEmpty
-                              ? Text('No Data')
+                              ? const Text('No Data')
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 4,
                                     ),
                                     for (var item in dataIp.ipV4)
@@ -180,9 +182,9 @@ class _MainVIewState extends State<MainVIew> {
                                         onTap: () async {
                                           funcCopyTextInClipboard(
                                               item.address.address);
-                                          NetworkService.pingDomain(
-                                            domain: 'google.com',
-                                          );
+                                          // NetworkService.getDomainIp(
+                                          //   domain: 'google.com',
+                                          // );
                                         },
                                         child: SizedBox(
                                           width: double.infinity,
@@ -193,7 +195,7 @@ class _MainVIewState extends State<MainVIew> {
                                                 Text(
                                                   '${item.address.address} (${item.interfaceName})',
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Icon(
                                                   iconByNetworkInterfaceName(
                                                     item.interfaceName,
@@ -204,25 +206,25 @@ class _MainVIewState extends State<MainVIew> {
                                           ),
                                         ),
                                       ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 3,
                                     )
                                   ],
                                 ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kToolbarHeight / 3,
                       ),
                       Card(
                         child: ListTile(
                           title: const Text('IPv6'),
                           subtitle: dataIp.ipV4.isEmpty
-                              ? Text('No Data')
+                              ? const Text('No Data')
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 4,
                                     ),
                                     for (var item in dataIp.ipV6)
@@ -241,7 +243,7 @@ class _MainVIewState extends State<MainVIew> {
                                                 Text(
                                                   '${item.address.address} (${item.interfaceName})',
                                                 ),
-                                                Spacer(),
+                                                const Spacer(),
                                                 Icon(
                                                   iconByNetworkInterfaceName(
                                                     item.interfaceName,
@@ -252,7 +254,7 @@ class _MainVIewState extends State<MainVIew> {
                                           ),
                                         ),
                                       ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: kToolbarHeight / 3,
                                     )
                                   ],
@@ -263,14 +265,6 @@ class _MainVIewState extends State<MainVIew> {
                   ),
                 ),
               ),
-        // floatingActionButton: dataIp.ipV4.isEmpty && dataIp.ipV6.isEmpty
-        //     ? const SizedBox()
-        //     : FloatingActionButton(
-        //         onPressed: () {
-        //           funcGetIp();
-        //         },
-        //         child: const Icon(Icons.refresh),
-        //       ),
       ),
     );
   }

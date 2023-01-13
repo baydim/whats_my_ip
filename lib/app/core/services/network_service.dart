@@ -50,15 +50,12 @@ class NetworkService {
     return dataIp;
   }
 
-  // get ping domain internet connection
-  static Future<DataIp> pingDomain({required String domain}) async {
-    log(domain, name: "pingDomain");
+  // get ip from domain
+  static Future<DataIp> getDomainIp({required String domain}) async {
     DataIp dataIp = DataIp(ipV4: [], ipV6: []);
 
     try {
       final result = await InternetAddress.lookup(domain);
-
-      log(result.toString(), name: "pingDomain");
 
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         for (var item in result) {
