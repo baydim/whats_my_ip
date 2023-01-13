@@ -9,11 +9,11 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "1.7.8+hotfix.4"
+          flutter-version: "3.0.0"
       - run: flutter pub get
-      - run: flutter build apk --debug --split-per-abi
+      - run: flutter build apk --release
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
         with:
