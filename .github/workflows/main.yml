@@ -1,22 +1,20 @@
 on: push
-name: Release apk
+name: Test, Build and Release apk
 jobs:
   build:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v1
-      with:
-        java-version: '12.x'
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.5.5'
-        channel: 'stable'
-    - run: flutter --version
-    channel: 'stable'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.5.5"
+          channel: "stable"
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
         with:
