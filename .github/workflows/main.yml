@@ -5,7 +5,13 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.3
+        with:
+          dart-version: "2.18.0"
+          channel: "stable"
+      - name: Install dependencies
+        run: dart pub get
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
