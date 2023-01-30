@@ -18,9 +18,14 @@ jobs:
           flutter-version: "3.0.0"
       - run: flutter pub get
       - run: flutter build apk --release
+      - name: Retrieve Release Version
+        id: versionstep
+        run: |
+          VERSION=$(more pubspec.yaml | grep version: | cut -d ' ' -f2)
+          echo "::set-output name=VERSION::$VERSION"
       - name: Push APK to Releases
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/flutter-apk/app-release.apk"
           token: ${{ secrets.TOKEN }}
-          tag: ${{ github.ref }}
+          tag: ${{ steps.versionstep.outputs.VERSION }}
