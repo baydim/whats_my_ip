@@ -160,7 +160,7 @@ class _MainVIewState extends State<MainVIew> {
                       ),
                       Text(
                         'Your IP',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(
                         height: kToolbarHeight / 4,
